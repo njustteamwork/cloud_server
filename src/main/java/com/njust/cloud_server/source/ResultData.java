@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class ResultData {
-    Long id = null;
+    private Long id = null;
     private String username;
     private Date earliestDate;
     private Date latestDate;

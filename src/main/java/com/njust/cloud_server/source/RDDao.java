@@ -15,4 +15,9 @@ public class RDDao{
     public int add(ResultData rd) {
            return jdbcTemplate.update("insert into result_data(username,earliest_date,latest_date,sum_of_temperature,sum_of_heart_rate,data_count) values(?, ?, ?, ?, ?, ?)",rd.getUsername(),rd.getEarliestDate(),rd.getLatestDate(),rd.getSumOfTemperature(),rd.getSumOfHeartRate(),rd.getDataCount());
     }
+
+
+
+
+
 }
