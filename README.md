@@ -1,4 +1,4 @@
-+   如何使用
+####  如何使用
 
 1. 安装IntelliJ IDEA
 2. File -> New -> Project from Version Control -> Git
