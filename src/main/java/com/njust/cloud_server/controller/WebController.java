@@ -1,14 +1,19 @@
 package com.njust.cloud_server.controller;
 
-import com.njust.cloud_server.source.ADDao;
-import com.njust.cloud_server.source.AverageData;
-import com.njust.cloud_server.source.DashboardService;
+import com.njust.cloud_server.source.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WebController {
@@ -18,6 +23,9 @@ public class WebController {
     @Autowired
     private DashboardService service;
 
+    @Autowired
+    private UserDao userDao;
+
     @RequestMapping("/web")
     public String test(Model model) {
         AverageData ad = new AverageData();
@@ -25,6 +33,25 @@ public class WebController {
         model.addAttribute("ad", ad);
         model.addAttribute("msg", "this is msg");
         return "hello";
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> map =new HashMap<String,Object>();
+        String userName=request.getParameter("userName");
+        String password=request.getParameter("password");
+        if(!userName.equals("") && password!=""){
+            User user =new User(userName,password);
+            if(userDao.verify(user)){
+                request.getSession().setAttribute("user",user);
+                map.put("result","1");
+            }
+            else map.put("result","-1");
+        }else{
+            map.put("result","0");
+        }
+        return map;
     }
 
     @RequestMapping("/dashboard")
@@ -38,12 +65,13 @@ public class WebController {
         String temperaturePercent,heartRatePercent;
         DecimalFormat df = new DecimalFormat("#.#%");
         float temp;
+        List<AverageData> list = adDao.queryEncryptedDataForms();
 
         for (int dayBefore = 6; dayBefore >= 0; dayBefore--) {
-            temperatureOfThisWeek[dayBefore] = Math.round(service.getAverageTemperatureOfDay(dayBefore) * 10) / 10f;
-            heartRateOfThisWeek[dayBefore] = Math.round(service.getAverageHeartRateOfDay(dayBefore) * 10) / 10f;
-            temperatureOfLastWeek[dayBefore] = Math.round(service.getAverageTemperatureOfDay(dayBefore + 7) * 10) / 10f;
-            heartRateOfLastWeek[dayBefore] = Math.round(service.getAverageHeartRateOfDay(dayBefore + 7) * 10) / 10f;
+            temperatureOfThisWeek[6-dayBefore] = Math.round(service.getAverageTemperatureOfDay(dayBefore) * 10) / 10f;
+            heartRateOfThisWeek[6-dayBefore] = Math.round(service.getAverageHeartRateOfDay(dayBefore) * 10) / 10f;
+            temperatureOfLastWeek[6-dayBefore] = Math.round(service.getAverageTemperatureOfDay(dayBefore + 7) * 10) / 10f;
+            heartRateOfLastWeek[6-dayBefore] = Math.round(service.getAverageHeartRateOfDay(dayBefore + 7) * 10) / 10f;
         }
 
         temp = (service.getCurrentTemperature()-service.getAverageTemperatureOfDay(1))/service.getAverageTemperatureOfDay(1);
@@ -67,7 +95,8 @@ public class WebController {
         model.addAttribute("temperaturePercent",temperaturePercent)
                 .addAttribute("heartRatePercent",heartRatePercent);
 
-        //[70, 75, 80, 85, 90, 85, 85]
+        model.addAttribute("abnormalData",list);
+
         return "dashboard";
     }
 }

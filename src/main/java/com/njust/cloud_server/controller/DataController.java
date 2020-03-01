@@ -37,7 +37,10 @@ public class DataController {
         averageData.setLatestDate(resultData.getLatestDate());
         averageData.setAverageTemperature(paillierDecryptor.decryptIt(resultData.getSumOfTemperature()).floatValue()/10f/resultData.getDataCount());
         averageData.setAverageHeartRate(paillierDecryptor.decryptIt(resultData.getSumOfHeartRate()).floatValue()/resultData.getDataCount());
-        adDao.add(averageData);
+        if(averageData.getAverageHeartRate()>55 && averageData.getAverageHeartRate()<110 && averageData.getAverageTemperature()>36 && averageData.getAverageTemperature()<37)
+            adDao.add(averageData);
+        else
+            adDao.addToAbnormal(averageData);
         return "got it";
     }
 }
