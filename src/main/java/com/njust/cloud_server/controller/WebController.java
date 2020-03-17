@@ -99,4 +99,9 @@ public class WebController {
 
         return "dashboard";
     }
+
+    @RequestMapping("toLogin")
+    public String toLogin(){
+        return "login";
+    }
 }

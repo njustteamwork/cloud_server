@@ -8,10 +8,8 @@ import com.njust.cloud_server.source.AverageData;
 import com.njust.cloud_server.source.RDDao;
 import com.njust.cloud_server.source.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("data")
@@ -42,5 +40,16 @@ public class DataController {
         else
             adDao.addToAbnormal(averageData);
         return "got it";
+    }
+
+    @PostMapping("/getFogUrl")
+    public String getFogUrl() {
+        /**
+         * 此处应调用雾节点分配算法
+         * 并返回雾节点地址
+         */
+        String urlString = "http://10.0.2.2:8080";
+        System.out.println("返回请求雾节点地址");
+        return urlString;
     }
 }

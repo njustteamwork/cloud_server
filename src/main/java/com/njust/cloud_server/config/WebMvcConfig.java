@@ -10,11 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 @Configuration  //注释以停用拦截器
 public class WebMvcConfig extends WebMvcConfigurationSupport {
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/toLogin").setViewName("login");
-        super.addViewControllers(registry);
-    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -22,6 +17,15 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/dashboard");
         super.addInterceptors(registry);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/public/");
+        super.addResourceHandlers(registry);
     }
 
 }
