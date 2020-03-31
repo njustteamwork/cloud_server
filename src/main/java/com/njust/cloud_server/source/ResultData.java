@@ -11,6 +11,7 @@ public class ResultData {
     private BigInteger sumOfTemperature;
     private BigInteger sumOfHeartRate;
     private int dataCount;
+    private long keyTimeStamp;
 
     public Long getId() { return id; }
 
@@ -62,5 +63,13 @@ public class ResultData {
 
     public int getDataCount() {
         return dataCount;
+    }
+
+    public long getKeyTimeStamp() {
+        return keyTimeStamp;
+    }
+
+    public void setKeyTimeStamp(long keyTimeStamp) {
+        this.keyTimeStamp = keyTimeStamp;
     }
 }
