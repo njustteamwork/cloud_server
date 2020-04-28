@@ -2,10 +2,7 @@ package com.njust.cloud_server.paillier;
 
 import com.google.gson.Gson;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.math.*;
 
 public class PaillierPrivateKey {
@@ -74,18 +71,25 @@ public class PaillierPrivateKey {
         return false;
     }
 
-    public boolean saveToFile() throws Exception {
+    public boolean saveToFile(){
+        ObjectOutputStream oos = null;
         try {
             String jsonPublicKey = this.getJsonStringPrivateKey();
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("PAILLIER_PRIVATE_KEY_FILE"));
+            oos = new ObjectOutputStream(new FileOutputStream("PAILLIER_PRIVATE_KEY_FILE"));
             oos.writeObject(jsonPublicKey);
             return true;
         } catch (Exception e) {
             return false;
+        }finally {
+            try {
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public static PaillierPrivateKey readFromFile() throws Exception {
+    public static PaillierPrivateKey readFromFile(){
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("PAILLIER_PRIVATE_KEY_FILE"));
             String jsonPrivateKey = ois.readObject().toString();
@@ -93,12 +97,16 @@ public class PaillierPrivateKey {
             PaillierPrivateKey paillierPrivateKey = gson.fromJson(jsonPrivateKey, PaillierPrivateKey.class);
             return paillierPrivateKey;
         } catch (Exception e) {
+            System.out.println("没有密钥文件，将新建一个密钥对");
             PaillierKeyGenerator pkg = new PaillierKeyGenerator();
             PaillierPrivateKey privateKey = pkg.getPaillierPrivateKey();
             PaillierPublicKey publicKey = pkg.getPaillierPublicKey();
             privateKey.saveToFile();
-            publicKey.saveToFile();
-            System.out.println("没有密钥文件，将新建一个密钥对");
+            try {
+                publicKey.saveToFile();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             return privateKey;
         }
     }

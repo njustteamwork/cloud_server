@@ -18,7 +18,7 @@ import java.security.PublicKey;
 @RestController
 @RequestMapping("data")
 public class DataController {
-    public DataController() throws Exception {
+    public DataController(){
     }
 
     @Autowired
@@ -34,7 +34,7 @@ public class DataController {
 
 
     @PostMapping("/postRData")
-    public String postEData(@RequestParam String data) throws Exception {
+    public String postEData(@RequestParam String data){
         System.out.println("收到聚合信息" + data);
         ResultData resultData = gson.fromJson(data, ResultData.class);
         if(privateKey.getTimeStamp()!= resultData.getKeyTimeStamp()){ //密钥错误
@@ -74,7 +74,7 @@ public class DataController {
     }
 
     @PostMapping("/getPublicKey")
-    public String getPublicKey() throws Exception {
+    public String getPublicKey(){
         PaillierPublicKey publicKey = PaillierPublicKey.readFromFile();
         System.out.println("返回公钥");
         return publicKey.getJsonStringPublicKey();
