@@ -1,17 +1,13 @@
 package com.njust.cloud_server.controller;
 
-import com.njust.cloud_server.paillier.PaillierDecryptor;
 import com.njust.cloud_server.paillier.PaillierKeyGenerator;
 import com.njust.cloud_server.paillier.PaillierPrivateKey;
 import com.njust.cloud_server.paillier.PaillierPublicKey;
-import com.njust.cloud_server.source.ADDao;
-import com.njust.cloud_server.source.AverageData;
-import com.njust.cloud_server.source.DashboardService;
+import com.njust.cloud_server.dao.ADDao;
+import com.njust.cloud_server.domain.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class TestController {

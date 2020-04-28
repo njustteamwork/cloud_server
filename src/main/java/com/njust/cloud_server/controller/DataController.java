@@ -5,14 +5,12 @@ import com.njust.cloud_server.paillier.PaillierDecryptor;
 import com.njust.cloud_server.paillier.PaillierKeyGenerator;
 import com.njust.cloud_server.paillier.PaillierPrivateKey;
 import com.njust.cloud_server.paillier.PaillierPublicKey;
-import com.njust.cloud_server.source.ADDao;
-import com.njust.cloud_server.source.AverageData;
-import com.njust.cloud_server.source.RDDao;
-import com.njust.cloud_server.source.ResultData;
+import com.njust.cloud_server.dao.ADDao;
+import com.njust.cloud_server.domain.AverageData;
+import com.njust.cloud_server.dao.RDDao;
+import com.njust.cloud_server.domain.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.PublicKey;
 
 
 @RestController

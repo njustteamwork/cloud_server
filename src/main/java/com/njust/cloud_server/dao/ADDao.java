@@ -1,6 +1,7 @@
-package com.njust.cloud_server.source;
+package com.njust.cloud_server.dao;
 
 
+import com.njust.cloud_server.domain.AverageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

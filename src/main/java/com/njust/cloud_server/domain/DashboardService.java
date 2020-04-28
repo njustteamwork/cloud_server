@@ -1,5 +1,6 @@
-package com.njust.cloud_server.source;
+package com.njust.cloud_server.domain;
 
+import com.njust.cloud_server.dao.ADDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

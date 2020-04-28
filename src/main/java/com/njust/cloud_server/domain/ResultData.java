@@ -1,4 +1,4 @@
-package com.njust.cloud_server.source;
+package com.njust.cloud_server.domain;
 
 import java.math.BigInteger;
 import java.util.Date;

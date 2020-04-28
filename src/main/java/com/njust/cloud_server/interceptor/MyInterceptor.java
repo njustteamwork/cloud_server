@@ -1,6 +1,6 @@
 package com.njust.cloud_server.interceptor;
 
-import com.njust.cloud_server.source.User;
+import com.njust.cloud_server.domain.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

@@ -1,11 +1,10 @@
-package com.njust.cloud_server.source;
+package com.njust.cloud_server.dao;
 
 
+import com.njust.cloud_server.domain.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class RDDao{
