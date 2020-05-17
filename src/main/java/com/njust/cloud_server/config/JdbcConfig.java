@@ -16,6 +16,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SpringBoot数据库配置类
+ */
+
 @Configuration
 @PropertySource(value = "classpath:jdbc.properties", ignoreResourceNotFound = true)
 public class JdbcConfig {

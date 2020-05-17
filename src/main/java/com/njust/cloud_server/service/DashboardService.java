@@ -1,11 +1,15 @@
-package com.njust.cloud_server.domain;
+package com.njust.cloud_server.service;
 
 import com.njust.cloud_server.dao.ADDao;
+import com.njust.cloud_server.domain.AverageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * dashboard的service层
+ */
 @Service
 public class DashboardService {
 

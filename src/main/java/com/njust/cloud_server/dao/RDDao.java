@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 接收到的雾节点数据DAO
+ */
 @Repository
 public class RDDao{
     @Autowired

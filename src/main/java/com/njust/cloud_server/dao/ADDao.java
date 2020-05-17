@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 解密后的数据DAO
+ */
 @Repository
 public class ADDao {
     @Autowired

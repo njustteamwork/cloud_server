@@ -3,6 +3,7 @@ package com.njust.cloud_server.controller;
 import com.njust.cloud_server.dao.ADDao;
 import com.njust.cloud_server.dao.UserDao;
 import com.njust.cloud_server.domain.*;
+import com.njust.cloud_server.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +12,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * 用于网页渲染的Controller
+ * 别问为什么在这调用DAO层
+ * 我也不知道
+ * 大概是比较方便把
+ * 以后尽量改
+ */
 @Controller
 public class WebController {
     @Autowired
@@ -37,13 +45,18 @@ public class WebController {
         return "hello";
     }
 
+    /**
+     * 登录验证
+     * @param request HttpServletRequest
+     * @return 返回登录map信息给前端
+     */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response){
+    public Map<String,Object> login(HttpServletRequest request){
         Map<String,Object> map =new HashMap<String,Object>();
         String userName=request.getParameter("userName");
         String password=request.getParameter("password");
-        if(!userName.equals("") && password!=""){
+        if(!userName.equals("") && !password.equals("")){
             User user =new User(userName,password);
             if(userDao.verify(user)){
                 request.getSession().setAttribute("user",user);
@@ -56,6 +69,9 @@ public class WebController {
         return map;
     }
 
+    /**
+     * 渲染dashboard页面
+     */
     @RequestMapping("/dashboard")
     public String dashboard(Model model) {
         float[] temperatureOfThisWeek = new float[7];
@@ -102,6 +118,9 @@ public class WebController {
         return "dashboard";
     }
 
+    /**
+     * 跳转至login页面
+     */
     @RequestMapping("toLogin")
     public String toLogin(){
         return "login";

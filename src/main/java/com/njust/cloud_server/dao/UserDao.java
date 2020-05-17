@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * UserDAO
+ */
 @Repository
 public class UserDao {
     @Autowired

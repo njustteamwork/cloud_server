@@ -7,6 +7,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 
+/**
+ *
+ */
 @Configuration  //注释以停用拦截器
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 

@@ -2,6 +2,9 @@ package com.njust.cloud_server.domain;
 
 import java.util.Date;
 
+/**
+ * 解密后的数据实体类
+ */
 public class AverageData {
     private Long id = null;
     private String username;

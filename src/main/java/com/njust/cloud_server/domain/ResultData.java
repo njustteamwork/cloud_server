@@ -3,6 +3,9 @@ package com.njust.cloud_server.domain;
 import java.math.BigInteger;
 import java.util.Date;
 
+/**
+ * 接收到的数据实体类
+ */
 public class ResultData {
     private Long id = null;
     private String username;
