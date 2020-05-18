@@ -43,9 +43,9 @@ public class DataController {
     public String postEData(@RequestParam String data){
         System.out.println("收到聚合信息" + data);
         ResultData resultData = gson.fromJson(data, ResultData.class);
-        if(privateKey.getTimeStamp()!= resultData.getKeyTimeStamp()){ //密钥错误
+        resultData.setId(null);
+        if(privateKey.getTimeStamp()!= resultData.getKeyTimeStamp()) //密钥错误
             return "WKTS";
-        }
         rdDao.add(resultData);
         averageData.setUsername(resultData.getUsername());
         averageData.setEarliestDate(resultData.getEarliestDate());
