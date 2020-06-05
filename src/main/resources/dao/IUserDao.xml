@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.cloud_server.dao.IUserDao">
+    <resultMap id="userMap" type="com.njust.cloud_server.domain.User">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <insert id="add"  parameterType="com.njust.cloud_server.domain.User">
+        insert into user(user_name, password) values(#{userName}, #{password})
+    </insert>
+
+    <select id="findByName" parameterType="String" resultMap="userMap">
+        select * from user where user_name = #{userName}
+    </select>
+
+</mapper>

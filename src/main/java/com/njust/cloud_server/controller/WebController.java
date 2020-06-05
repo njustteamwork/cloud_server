@@ -1,7 +1,5 @@
 package com.njust.cloud_server.controller;
 
-import com.njust.cloud_server.dao.ADDao;
-import com.njust.cloud_server.dao.UserDao;
 import com.njust.cloud_server.domain.*;
 import com.njust.cloud_server.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +25,9 @@ import java.util.Map;
  */
 @Controller
 public class WebController {
-    @Autowired
-    private ADDao adDao;
 
     @Autowired
     private DashboardService service;
-
-    @Autowired
-    private UserDao userDao;
 
     @RequestMapping("/web")
     public String test(Model model) {
@@ -58,7 +51,7 @@ public class WebController {
         String password=request.getParameter("password");
         if(!userName.equals("") && !password.equals("")){
             User user =new User(userName,password);
-            if(userDao.verify(user)){
+            if(service.userVerify(user)){
                 request.getSession().setAttribute("user",user);
                 map.put("result","1");
             }
@@ -83,7 +76,9 @@ public class WebController {
         String temperaturePercent,heartRatePercent;
         DecimalFormat df = new DecimalFormat("#.#%");
         float temp;
-        List<AverageData> list = adDao.queryEncryptedDataForms();
+
+
+        List<AverageData> list = service.queryAbnormalData();
 
         for (int dayBefore = 6; dayBefore >= 0; dayBefore--) {
             temperatureOfThisWeek[6-dayBefore] = Math.round(service.getAverageTemperatureOfDay(dayBefore) * 10) / 10f;

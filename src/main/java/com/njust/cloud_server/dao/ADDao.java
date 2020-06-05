@@ -40,7 +40,7 @@ public class ADDao {
             return null;
     }
 
-    public List<AverageData> queryEncryptedDataForms() {
+    public List<AverageData> queryAbnormalData() {
         List<AverageData> list = jdbcTemplate.query("select * from abnormal_data order by id desc limit 4",new BeanPropertyRowMapper<AverageData>(AverageData.class));
         return list;
     }

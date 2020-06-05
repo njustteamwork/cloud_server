@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.njust.cloud_server.dao.IADDao">
+    <resultMap id="averageDataMap" type="com.njust.cloud_server.domain.AverageData">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="earliestDate" column="earliest_date"/>
+        <result property="latestDate" column="latest_date"/>
+        <result property="averageTemperature" column="average_temperature"/>
+        <result property="averageHeartRate" column="average_heart_rate"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.njust.cloud_server.domain.AverageData">
+        insert into average_data(username,earliest_date,latest_date,average_temperature,average_heart_rate) values(#{username}, #{earliestDate}, #{latestDate}, #{averageTemperature}, #{averageHeartRate})
+    </insert>
+
+    <insert id="addToAbnormal" parameterType="com.njust.cloud_server.domain.AverageData">
+        insert into abnormal_data(username,earliest_date,latest_date,average_temperature,average_heart_rate) values(#{username}, #{earliestDate}, #{latestDate}, #{averageTemperature}, #{averageHeartRate})
+    </insert>
+
+    <select id="queryByDay" parameterType="int" resultMap="averageDataMap">
+        SELECT * FROM average_data WHERE TO_DAYS(NOW()) - TO_DAYS(earliest_date) = #{dayBefore}
+    </select>
+
+    <select id="queryByHour" parameterType="int" resultMap="averageDataMap">
+        SELECT * FROM average_data WHERE earliest_date > NOW()-INTERVAL #{hourBefore} HOUR
+    </select>
+
+    <select id="queryAbnormalData" resultMap="averageDataMap">
+        select * from abnormal_data order by id desc limit 4
+    </select>
+
+</mapper>

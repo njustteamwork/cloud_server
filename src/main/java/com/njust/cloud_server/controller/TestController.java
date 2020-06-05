@@ -3,9 +3,6 @@ package com.njust.cloud_server.controller;
 import com.njust.cloud_server.paillier.PaillierKeyGenerator;
 import com.njust.cloud_server.paillier.PaillierPrivateKey;
 import com.njust.cloud_server.paillier.PaillierPublicKey;
-import com.njust.cloud_server.dao.ADDao;
-import com.njust.cloud_server.service.DashboardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,11 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
-    @Autowired
-    private ADDao adDao;
-
-    @Autowired
-    private DashboardService dashboardService;
 
     @GetMapping("/test")
     public String test(){

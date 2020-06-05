@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.njust.cloud_server.dao.IRDDao">
+    <resultMap id="resultDataMap" type="com.njust.cloud_server.domain.ResultData">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="earliestDate" column="earliest_date"/>
+        <result property="latestDate" column="latest_date"/>
+        <result property="sumOfTemperature" column="sum_of_temperature"/>
+        <result property="sumOfHeartRate" column="sum_of_heart_rate"/>
+        <result property="dataCount" column="data_count"/>
+    </resultMap>
+
+    <insert id="add"  parameterType="com.njust.cloud_server.domain.ResultData">
+        insert into result_data(username,earliest_date,latest_date,sum_of_temperature,sum_of_heart_rate,data_count) values(#{username}, #{earliestDate}, #{latestDate}, #{sumOfTemperature}, #{sumOfHeartRate}, #{dataCount})
+    </insert>
+
+</mapper>
