@@ -18,10 +18,6 @@ import java.util.Map;
 
 /**
  * 用于网页渲染的Controller
- * 别问为什么在这调用DAO层
- * 我也不知道
- * 大概是比较方便把
- * 以后尽量改
  */
 @Controller
 public class WebController {

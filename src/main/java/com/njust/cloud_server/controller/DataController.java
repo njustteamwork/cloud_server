@@ -38,11 +38,6 @@ public class DataController {
         System.out.println("收到聚合信息" + data);
         ResultData resultData = gson.fromJson(data, ResultData.class);
         resultData.setId(null);
-        if(privateKey.getTimeStamp()!= resultData.getKeyTimeStamp()) //密钥错误
-            return "WKTS";
-
-        dataService.saveData(resultData,paillierDecryptor);
-
         if(privateKey.isTimeUp()){
             System.out.println("密钥过期，将新建一个密钥对");
             PaillierKeyGenerator pkg = new PaillierKeyGenerator();
@@ -50,8 +45,10 @@ public class DataController {
             PaillierPublicKey publicKey = pkg.getPaillierPublicKey();
             privateKey.saveToFile();
             publicKey.saveToFile();
-            return "WKTS";
         }
+        if(privateKey.getTimeStamp()!= resultData.getKeyTimeStamp()) //密钥错误
+            return "WKTS";
+        dataService.saveData(resultData,paillierDecryptor);
         return "got it";
     }
 
